@@ -1,0 +1,39 @@
+{
+  "name" : "ETL",
+  "description" : "",
+  "role" : "arn:aws:iam::296691654883:role/AWSGlue-S3-access",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 1
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://aws-glue-assets-296691654883-us-east-2/scripts/ETL.py",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--enable-metrics" : "true",
+    "--enable-spark-ui" : "true",
+    "--spark-event-logs-path" : "s3://aws-glue-assets-296691654883-us-east-2/sparkHistoryLogs/",
+    "--enable-job-insights" : "false",
+    "--enable-glue-datacatalog" : "true",
+    "--enable-continuous-cloudwatch-log" : "true",
+    "--job-bookmark-option" : "job-bookmark-disable",
+    "--job-language" : "python",
+    "--TempDir" : "s3://aws-glue-assets-296691654883-us-east-2/temporary/"
+  },
+  "maxRetries" : 0,
+  "allocatedCapacity" : 10,
+  "timeout" : 2880,
+  "maxCapacity" : 10.0,
+  "glueVersion" : "4.0",
+  "numberOfWorkers" : 10,
+  "workerType" : "G.1X",
+  "executionClass" : "STANDARD",
+  "codeGenConfigurationNodes" : "{\"node-1698926164341\":{\"S3GlueParquetTarget\":{\"Compression\":\"snappy\",\"Inputs\":[\"node-1698926137483\"],\"Name\":\"Amazon S3\",\"PartitionKeys\":[],\"Path\":\"s3://portfolio-reddit-pipeline/transformed/\",\"SchemaChangePolicy\":{\"EnableUpdateCatalog\":false}}},\"node-1698926137483\":{\"S3CsvSource\":{\"AdditionalOptions\":{\"EnableSamplePath\":false,\"SamplePath\":\"s3://portfolio-reddit-pipeline/raw/reddit_20231102.csv\"},\"Escaper\":\"\",\"Exclusions\":[],\"Name\":\"Amazon S3\",\"OptimizePerformance\":false,\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"id\",\"Type\":\"string\"},{\"Name\":\"title\",\"Type\":\"string\"},{\"Name\":\"score\",\"Type\":\"string\"},{\"Name\":\"num_comments\",\"Type\":\"string\"},{\"Name\":\"author\",\"Type\":\"string\"},{\"Name\":\"created_utc\",\"Type\":\"string\"},{\"Name\":\"url\",\"Type\":\"string\"},{\"Name\":\"over_18\",\"Type\":\"string\"},{\"Name\":\"edited\",\"Type\":\"string\"},{\"Name\":\"spoiler\",\"Type\":\"string\"},{\"Name\":\"stickied\",\"Type\":\"string\"},{\"Name\":\"tag_type\",\"Type\":\"string\"}]}],\"Paths\":[\"s3://portfolio-reddit-pipeline/raw/reddit_20231102.csv\"],\"QuoteChar\":\"quote\",\"Recurse\":true,\"Separator\":\"comma\",\"WithHeader\":true}}}",
+  "sourceControlDetails" : {
+    "provider" : "GITHUB",
+    "repository" : "reddit_pipeline",
+    "branch" : "main",
+    "folder" : "ETL"
+  }
+}
